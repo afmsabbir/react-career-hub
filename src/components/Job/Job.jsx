@@ -1,4 +1,5 @@
-
+import { IoLocationOutline } from "react-icons/io5";
+import { AiOutlineDollar } from "react-icons/ai";
 
 const Job = ({ job }) => {
   const {
@@ -19,16 +20,23 @@ const Job = ({ job }) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{job_title}</h2>
-        <p>{company_name}</p>
+        <p className="font-bold">{company_name}</p>
         <div>
-            <button className="btn btn-outline btn-info">{remote_or_onsite}</button>
-            <button className="btn btn-outline btn-info mx-4">{job_type}</button>
+          <button className="btn btn-outline btn-info">
+            {remote_or_onsite}
+          </button>
+          <button className="btn btn-outline btn-info mx-4">{job_type}</button>
         </div>
-        <div>
-            <p>{location}</p>
-            <p>{salary}</p>
+        <div className="flex mt-4">
+          <p className="flex">
+            <IoLocationOutline className="text-2xl mr-2" /> {location}
+          </p>
+          <p className="flex">
+            <AiOutlineDollar className="text-2xl mr-2" />
+            Salary: {salary}
+          </p>
         </div>
-        <div className="card-actions justify-start">
+        <div className="card-actions">
           <button className="btn btn-primary">View Details</button>
         </div>
       </div>

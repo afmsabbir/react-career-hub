@@ -3,12 +3,14 @@ import { useState } from "react";
 import Job from "../Job/Job";
 
 const FeaturedJobs = () => {
-  const [jobs, setJobs] = useState([])
-  useEffect( ()=>{
-    fetch('jobs.json')
-    .then(res => res.json())
-    .then(data => setJobs(data))
-  },[])
+  const [jobs, setJobs] = useState([]);
+  // This is not the best way to load show all data:
+  const [dataLength, setDataLength] = useState(4);
+  useEffect(() => {
+    fetch("jobs.json")
+      .then((res) => res.json())
+      .then((data) => setJobs(data));
+  }, []);
   return (
     <div>
       <div className="text-center">
@@ -19,9 +21,19 @@ const FeaturedJobs = () => {
         </p>
       </div>
       <div className="grid grid-cols-2 gap-6">
-        {
-          jobs.map(job => <Job key={job.id} job={job}></Job>)
-        }
+        {jobs.slice(0, dataLength).map((job) => (
+          <Job key={job.id} job={job}></Job>
+        ))}
+      </div>
+      <div className={dataLength === jobs.length && "hidden"}>
+        <div className="card-actions justify-center my-6">
+          <button
+            onClick={() => setDataLength(jobs.length)}
+            className="btn btn-primary"
+          >
+            See All Jobs
+          </button>
+        </div>
       </div>
     </div>
   );
