@@ -1,4 +1,6 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   AiOutlineDollar,
   AiOutlineCalendar,
@@ -6,13 +8,17 @@ import {
   AiOutlineMail,
 } from "react-icons/ai";
 import { IoLocationOutline } from "react-icons/io5";
+import { saveJobApplication } from "../../utility/localStorage";
 
 const JobDetails = () => {
   const jobs = useLoaderData();
   const { id } = useParams();
   const idInt = parseInt(id);
   const job = jobs.find((job) => job.id === idInt);
-  console.log(job);
+  const handleApplyJob = () => {
+    saveJobApplication(id);
+    toast("you are applied successfully");
+  };
   return (
     <div>
       <h1 className="card-actions justify-center font-semibold text-3xl my-6">
@@ -62,9 +68,12 @@ const JobDetails = () => {
             <IoLocationOutline className="text-2xl mr-1" />
             Address: {job.contact_information.address}
           </p>
-          <button className="btn btn-primary w-full">Apply Now</button>
+          <button onClick={handleApplyJob} className="btn btn-primary w-full">
+            Apply Now
+          </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
